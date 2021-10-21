@@ -35,13 +35,13 @@ const getMovieDetails = (searchTerm) => {
 };
 
 const searchTV = async (searchTerm) => {
-  const request = await axios.get(`${baseUrl}/getTvDetails?tvId=${searchTerm}`);
+  const request = await axios.get(`${baseUrl}/getTv?tvName=${searchTerm}`);
   return request;
 };
 
 const getTVDetails = (searchTerm) => {
   const request = axios
-    .get(`${baseUrl}/getTv?tvName=${searchTerm}`)
+    .get(`${baseUrl}/getTvDetails?tvId=${searchTerm}`)
     .then((res) => {
       return { data: res.data, complete: true };
     });
@@ -51,6 +51,7 @@ const getTVDetails = (searchTerm) => {
 
 const getTrendingMovies = () => {
   const request = axios.get(`${baseUrl}/getTrendingMovies`).then((res) => {
+    console.log(res)
     return { data: res.data, complete: true };
   });
   return request;
