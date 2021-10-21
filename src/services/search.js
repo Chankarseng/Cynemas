@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = '/api/search';
+const baseUrl = 'https://agile-earth-37278.herokuapp.com/api/search';
 
 const searchCountry = (searchTerm) => {
   const request = axios
