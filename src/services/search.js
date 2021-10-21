@@ -49,7 +49,7 @@ const getTVDetails = (searchTerm) => {
 };
 
 const getTrendingMovies = () => {
-  const request = axios.get(`./netlify/functions/getMovieTrending`).then((res) => {
+  const request = axios.get(`./netlify/functions/getTrendingMovies`).then((res) => {
     return { data: res.data, complete: true };
   });
   return request;
