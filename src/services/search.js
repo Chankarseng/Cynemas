@@ -1,11 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:8080/api/search';
-
-const searchMovie = async (searchTerm) => {
-  const request = await axios.get(`${baseUrl}/${searchTerm}`);
-  return request;
-};
+const baseUrl = '/api/search';
 
 const searchCountry = (searchTerm) => {
   const request = axios
@@ -25,15 +20,43 @@ const searchWatchProviders = (searchTerm) => {
   return request;
 };
 
+const searchMovie = async (searchTerm) => {
+  const request = await axios.get(`${baseUrl}/movie/${searchTerm}`);
+  return request;
+};
+
 const getMovieDetails = (searchTerm) => {
-  const request = axios.get(`${baseUrl}/${searchTerm}/details`).then((res) => {
-    return { data: res.data, complete: true };
-  });
+  const request = axios
+    .get(`${baseUrl}/movie/${searchTerm}/details`)
+    .then((res) => {
+      return { data: res.data, complete: true };
+    });
+  return request;
+};
+
+const searchTV = async (searchTerm) => {
+  const request = await axios.get(`${baseUrl}/tv/${searchTerm}`);
+  return request;
+};
+
+const getTVDetails = (searchTerm) => {
+  const request = axios
+    .get(`${baseUrl}/tv/${searchTerm}/details`)
+    .then((res) => {
+      return { data: res.data, complete: true };
+    });
   return request;
 };
 
 const getTrendingMovies = () => {
   const request = axios.get(`${baseUrl}/trending/movies`).then((res) => {
+    return { data: res.data, complete: true };
+  });
+  return request;
+};
+
+const getTrendingTv = () => {
+  const request = axios.get(`${baseUrl}/trending/tv`).then((res) => {
     return { data: res.data, complete: true };
   });
   return request;
@@ -45,4 +68,7 @@ export default {
   searchWatchProviders,
   getMovieDetails,
   getTrendingMovies,
+  getTrendingTv,
+  searchTV,
+  getTVDetails,
 };
