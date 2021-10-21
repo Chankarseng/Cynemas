@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'https://agile-earth-37278.herokuapp.com/api/search';
+const baseUrl = './.netlify/functions';
 
 const searchCountry = (searchTerm) => {
   const request = axios
@@ -24,10 +24,10 @@ const searchMovie = async (searchTerm) => {
   const request = await axios.get(`${baseUrl}/movie/${searchTerm}`);
   return request;
 };
-
+//done
 const getMovieDetails = (searchTerm) => {
   const request = axios
-    .get(`${baseUrl}/movie/${searchTerm}/details`)
+    .get(`${baseUrl}/getMovieDetails?movieName=${searchTerm}`)
     .then((res) => {
       return { data: res.data, complete: true };
     });
@@ -41,15 +41,16 @@ const searchTV = async (searchTerm) => {
 
 const getTVDetails = (searchTerm) => {
   const request = axios
-    .get(`${baseUrl}/tv/${searchTerm}/details`)
+    .get(`${baseUrl}/getTvDetails?tvName=${searchTerm}`)
     .then((res) => {
       return { data: res.data, complete: true };
     });
   return request;
 };
 
+
 const getTrendingMovies = () => {
-  const request = axios.get(`./.netlify/functions/getTrendingMovies`).then((res) => {
+  const request = axios.get(`${baseUrl}/getTrendingMovies`).then((res) => {
     return { data: res.data, complete: true };
   });
   return request;
