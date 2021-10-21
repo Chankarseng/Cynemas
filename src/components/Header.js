@@ -4,7 +4,6 @@ import {
   Heading,
   Button,
   useColorMode,
-  Link,
   useToast,
 } from '@chakra-ui/react';
 const Header = ({

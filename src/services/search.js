@@ -62,7 +62,7 @@ const getTrendingTv = () => {
   return request;
 };
 
-export default {
+const exportedObject = {
   searchMovie,
   searchCountry,
   searchWatchProviders,
@@ -72,3 +72,4 @@ export default {
   searchTV,
   getTVDetails,
 };
+export default exportedObject;

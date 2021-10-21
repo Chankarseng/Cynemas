@@ -6,4 +6,5 @@ const getAllCountries = async () => {
   return request.data;
 };
 
-export default { getAllCountries };
+const exportedObject = { getAllCountries };
+export default exportedObject;
