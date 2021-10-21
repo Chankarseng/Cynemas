@@ -4,7 +4,7 @@ const baseUrl = './.netlify/functions';
 
 const searchCountry = (searchTerm) => {
   const request = axios
-    .get(`${baseUrl}/countries/${searchTerm}`)
+    .get(`${baseUrl}/getCountries`)
     .then((res) => {
       return { data: res.data, complete: true };
     });
@@ -13,7 +13,7 @@ const searchCountry = (searchTerm) => {
 
 const searchWatchProviders = (searchTerm) => {
   const request = axios
-    .get(`${baseUrl}/watch_providers/${searchTerm}`)
+    .get(`${baseUrl}/getMovieProviders`)
     .then((res) => {
       return { data: res.data, complete: true };
     });
@@ -21,13 +21,13 @@ const searchWatchProviders = (searchTerm) => {
 };
 
 const searchMovie = async (searchTerm) => {
-  const request = await axios.get(`${baseUrl}/movie/${searchTerm}`);
+  const request = await axios.get(`${baseUrl}/getMovie?movieName=${searchTerm}`);
   return request;
 };
 //done
 const getMovieDetails = (searchTerm) => {
   const request = axios
-    .get(`${baseUrl}/getMovieDetails?movieName=${searchTerm}`)
+    .get(`${baseUrl}/getMovieDetails?movieId=${searchTerm}`)
     .then((res) => {
       return { data: res.data, complete: true };
     });
@@ -35,13 +35,13 @@ const getMovieDetails = (searchTerm) => {
 };
 
 const searchTV = async (searchTerm) => {
-  const request = await axios.get(`${baseUrl}/tv/${searchTerm}`);
+  const request = await axios.get(`${baseUrl}/getTvDetails?tvId=${searchTerm}`);
   return request;
 };
 
 const getTVDetails = (searchTerm) => {
   const request = axios
-    .get(`${baseUrl}/getTvDetails?tvName=${searchTerm}`)
+    .get(`${baseUrl}/getTv?tvName=${searchTerm}`)
     .then((res) => {
       return { data: res.data, complete: true };
     });
@@ -57,7 +57,7 @@ const getTrendingMovies = () => {
 };
 
 const getTrendingTv = () => {
-  const request = axios.get(`${baseUrl}/trending/tv`).then((res) => {
+  const request = axios.get(`${baseUrl}/getTrendingTv`).then((res) => {
     return { data: res.data, complete: true };
   });
   return request;
