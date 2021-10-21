@@ -68,8 +68,15 @@ const SearchItem = (props) => {
       setOptions(trendingMovies);
     })();
   }, [props.currentSearchType]);
-  const loadOptions = async (value, callback) => {
-    callback(await filterData(value));
+
+  let timeoutId;
+  const loadOptions = (value, callback) => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(async () => {
+      callback(await filterData(value));
+    }, 1000);
   };
   const filterData = async (value) => {
     if (value !== '') {
