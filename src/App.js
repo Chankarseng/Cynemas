@@ -14,7 +14,7 @@ import React, { useEffect, useState } from 'react';
 import SearchItem from './components/SearchItem';
 import SearchCountries from './components/SearchCountries';
 import SearchProviders from './components/SearchProviders';
-import MovieList from './components/ItemList';
+import ItemList from './components/ItemList';
 import Header from './components/Header';
 import searchService from './services/search';
 import InfoAccordion from './components/InfoAccordion';
@@ -59,7 +59,6 @@ function App() {
       setCurrentListOfItems(listOfTvSeries);
     }
   }, [currentSearchType, listOfMovies, listOfTvSeries]);
-
   const handleSubmit = () => {
     if (currentSearchType === 'Movies') {
       inputValue.forEach(async (item) => {
@@ -129,7 +128,13 @@ function App() {
     indexOfFirstPost,
     indexOfLastPost
   );
+  useEffect(() => {
+    if (currentItems < itemsPerPage) {
+      setCurrentPage(1);
+    }
+  }, [currentItems, itemsPerPage]);
   const changeCurrentSearchType = (currentSearchType) => {
+    setInputValue([]);
     setCurrentSearchType(currentSearchType === 'TV' ? 'Movies' : 'TV');
   };
   return (
@@ -145,7 +150,8 @@ function App() {
         <Container maxW="container.xl">
           <VStack align="start" spacing={0}>
             <Header
-              currentListOfItems={currentListOfItems}
+              listOfMovies={listOfMovies}
+              listOfTvSeries={listOfTvSeries}
               currentSearchType={currentSearchType}
               changeCurrentSearchType={changeCurrentSearchType}
             />
@@ -203,7 +209,7 @@ function App() {
               />
             </GridItem>
             {currentItems.length !== 0 ? (
-              <MovieList
+              <ItemList
                 listOfItems={currentItems}
                 titleFilter={titleFilter}
                 selectedCountry={selectedCountry}

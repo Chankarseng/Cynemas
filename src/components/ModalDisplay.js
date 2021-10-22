@@ -23,12 +23,23 @@ import {
   TabPanels,
   TabPanel,
   Button,
+  Flex,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 
 const ModalDisplay = ({ title, isOpen, onClose, keys, watch_providers }) => {
+  const modalSize = useBreakpointValue({ base: 'xs', lg: '3xl' });
+
+  const getFlagEmoji = (countryCode) => {
+    const codePoints = countryCode
+      .toUpperCase()
+      .split('')
+      .map((char) => 127397 + char.charCodeAt());
+    return String.fromCodePoint(...codePoints);
+  };
   if (keys.length === 0 || keys === undefined || keys === []) {
     return (
-      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+      <Modal isOpen={isOpen} onClose={onClose} size={modalSize}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>{title}</ModalHeader>
@@ -45,7 +56,7 @@ const ModalDisplay = ({ title, isOpen, onClose, keys, watch_providers }) => {
     );
   } else {
     return (
-      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+      <Modal isOpen={isOpen} onClose={onClose} size={modalSize}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
@@ -77,12 +88,23 @@ const ModalDisplay = ({ title, isOpen, onClose, keys, watch_providers }) => {
                           return (
                             <Tr key={country}>
                               <Td>
-                                <Image
-                                  title={country}
-                                  alt={country}
-                                  src={`https://www.countryflags.io/${country}/flat/32.png`}
-                                />
-                                <Text>({country})</Text>
+                                <Flex direction={{ base: 'column', md: 'row' }}>
+                                  {/* <Image
+                                    width={14}
+                                    title={country}
+                                    alt={country}
+                                    src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AC.svg`}
+                                  /> */}
+                                  <Text fontSize={30}>
+                                    {getFlagEmoji(country)}
+                                  </Text>
+                                  <Text
+                                    ml={{ base: 0, md: 5 }}
+                                    mt={{ base: 5, md: 0 }}
+                                  >
+                                    ({country})
+                                  </Text>
+                                </Flex>
                               </Td>
                               <Td>
                                 <Wrap>

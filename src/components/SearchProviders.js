@@ -19,7 +19,7 @@ const SearchProviders = (props) => {
   const filterData = async (value) => {
     if (value !== '') {
       const result = await searchService.searchWatchProviders(value);
-      const finalResult = result.data
+      const finalResult = result.data.results
         .filter((data) => {
           return data.provider_name.toLowerCase().includes(value.toLowerCase());
         })

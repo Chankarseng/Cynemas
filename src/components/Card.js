@@ -11,6 +11,7 @@ import {
   WrapItem,
   Link,
   useDisclosure,
+  Spacer,
   useBreakpointValue,
 } from '@chakra-ui/react';
 import CardAlertDialog from './CardAlertDialog';
@@ -20,15 +21,18 @@ const Card = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const imageSize = useBreakpointValue({ base: 'full', md: '50%' });
   const headingSize = useBreakpointValue({
+    base: 'md',
     sm: 'xl',
     md: 'md',
     lg: 'sm',
   });
   const textSize = useBreakpointValue({
-    sm: '2xl',
+    base: 'md',
+    sm: 'xl',
     md: 'lg',
     lg: 'md',
   });
+  const numOfSlice = useBreakpointValue({ base: 6, sm: 6 });
   const keys = Object.keys(props.watch_providers);
   const objects = Object.values(props.watch_providers);
 
@@ -86,7 +90,7 @@ const Card = (props) => {
     .sort((a, b) => {
       return a.display_priority - b.display_priority;
     });
-  console.log(combinedStreamingService);
+  // console.log(combinedStreamingService);
   // TODO: Array has been filtered, thus now can display on the card itself
   // console.log([...new Map(test.map(item => [item.provider_id, item])).values()])
   // const uniqueStreamingServices = objects.reduce((prev, current) => {
@@ -108,28 +112,34 @@ const Card = (props) => {
   // }, []);
   // console.log([...new Set(uniqueStreamingServices)].filter((e) => e != null));
   return (
-    <Box>
+    <Box pb={3}>
       <Flex direction={{ base: 'column', md: 'row' }}>
-        <Image w={imageSize} src={props.image} />
+        <Image loading="lazy" w={imageSize} src={props.image} />
 
         <Box p="3" maxW={{ base: 'full', md: '50%' }}>
-          <Stack>
-            <Heading fontWeight={'light'} size={headingSize}>
-              Title
-            </Heading>
-            <Text fontSize={textSize} as="b" noOfLines={2}>
-              {props.title}
-            </Text>
-            <Heading fontWeight={'light'} size={headingSize}>
-              Released
-            </Heading>
-            <Text fontSize={textSize} as="b">
-              {props.release_date}
-            </Text>
-            <Heading fontWeight={'light'} size={headingSize}>
-              More at
-            </Heading>
-          </Stack>
+          <Flex direction={{ base: 'row', md: 'column' }} mb={3}>
+            <Box>
+              <Heading fontWeight={'light'} size={headingSize}>
+                Title
+              </Heading>
+              <Text fontSize={textSize} as="b" noOfLines={2}>
+                {props.title}
+              </Text>
+            </Box>
+            <Spacer />
+            <Box>
+              <Heading fontWeight={'light'} size={headingSize}>
+                Released
+              </Heading>
+
+              <Text fontSize={textSize} as="b">
+                {props.release_date}
+              </Text>
+            </Box>
+          </Flex>
+          <Heading fontWeight={'light'} size={headingSize}>
+            More at
+          </Heading>
           <Box mt="3">
             <Link
               mr="10px"
@@ -162,7 +172,7 @@ const Card = (props) => {
           </Box>
         </Box>
       </Flex>
-      <Box my={5} mx={3}>
+      <Box mx={3} mt={{base: 0, md: 4}}>
         <Stack>
           {combinedStreamingService.length === 0 ? (
             <Text>
@@ -187,7 +197,7 @@ const Card = (props) => {
             return null;
           })} */}
           <Wrap w="full">
-            {combinedStreamingService.slice(0, 6).map((c) => {
+            {combinedStreamingService.slice(0, numOfSlice).map((c) => {
               return (
                 <WrapItem key={c.provider_name}>
                   <Image

@@ -7,19 +7,24 @@ import {
   useToast,
 } from '@chakra-ui/react';
 const Header = ({
-  currentListOfItems,
+  listOfMovies,
+  listOfTvSeries,
   currentSearchType,
   changeCurrentSearchType,
 }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const toast = useToast();
-  
+
   const saveResult = () => {
     const id = 'saveResultToast';
     try {
       localStorage.setItem(
         'cynemasAppListOfMovie',
-        JSON.stringify(currentListOfItems)
+        JSON.stringify(listOfMovies)
+      );
+      localStorage.setItem(
+        'cynemasAppListOfTvSeries',
+        JSON.stringify(listOfTvSeries)
       );
       if (!toast.isActive(id)) {
         toast({
@@ -47,13 +52,14 @@ const Header = ({
       if (!toast.isActive(id)) {
         toast({
           id,
-          title: 'Movie list has been cleared from your browser',
+          title: 'All list has been cleared from your browser',
           status: 'info',
           duration: 3000,
           isClosable: true,
         });
       }
       localStorage.removeItem('cynemasAppListOfMovie');
+      localStorage.removeItem('cynemasAppListOfTvSeries');
     } catch (error) {
       toast({
         id,

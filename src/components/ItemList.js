@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useBreakpointValue, GridItem, Box } from '@chakra-ui/react';
 import Card from './Card';
-const MovieList = ({
+const ItemList = ({
   listOfItems,
   titleFilter,
   selectedCountry,
@@ -10,11 +10,11 @@ const MovieList = ({
   handleRemove,
 }) => {
   const cardColSpan = useBreakpointValue({ base: 8, md: 4, lg: 2 });
-  console.log(listOfItems)
+  // console.log(listOfItems)
   return listOfItems != null || listOfItems.length !== 0
     ? listOfItems.map((movie) => {
         return (
-          <GridItem key={movie.id} colSpan={cardColSpan}>
+          <GridItem key={movie.id} colSpan={cardColSpan} px={{base: 8, md: 0}}>
             <Box
               key={movie.id}
               overflow="hidden"
@@ -37,4 +37,4 @@ const MovieList = ({
       })
     : null;
 };
-export default MovieList;
+export default ItemList;

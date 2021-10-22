@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AsyncSelect } from 'chakra-react-select';
 import searchService from '../services/search';
 import { Center, Flex, Spacer } from '@chakra-ui/layout';
-import { Image } from '@chakra-ui/image';
+import PosterImage from './PosterImage';
 const SearchItem = (props) => {
   const [options, setOptions] = useState([]);
 
@@ -23,12 +23,7 @@ const SearchItem = (props) => {
                   {result.title} ({releaseDate})
                 </Center>
                 <Spacer />
-                <Image
-                  w={9}
-                  fallbackSrc="https://via.placeholder.com/150"
-                  alt=""
-                  src={`https://image.tmdb.org/t/p/w500/${result.poster_path}`}
-                />
+                <PosterImage poster_path={result.poster_path} />
               </Flex>
             ),
             value: result.id,
@@ -49,12 +44,7 @@ const SearchItem = (props) => {
                   {result.name} ({firstAirDate})
                 </Center>
                 <Spacer />
-                <Image
-                  w={9}
-                  fallbackSrc="https://via.placeholder.com/150"
-                  alt=""
-                  src={`https://image.tmdb.org/t/p/w500/${result.poster_path}`}
-                />
+                <PosterImage poster_path={result.poster_path} />
               </Flex>
             ),
             value: result.id,
@@ -64,8 +54,8 @@ const SearchItem = (props) => {
       return trendingItemOptions;
     };
     (async () => {
-      const trendingMovies = await getTrending();
-      setOptions(trendingMovies);
+      const trendingItems = await getTrending();
+      setOptions(trendingItems);
     })();
   }, [props.currentSearchType]);
 
@@ -76,13 +66,13 @@ const SearchItem = (props) => {
     }
     timeoutId = setTimeout(async () => {
       callback(await filterData(value));
-    }, 1000);
+    }, 500);
   };
   const filterData = async (value) => {
     if (value !== '') {
       if (props.currentSearchType === 'Movies') {
         const result = await searchService.searchMovie(value);
-
+        console.log(result);
         const finalResult = result.data.results
           .filter((data) => {
             return data.title.toLowerCase().includes(value.toLowerCase());
@@ -100,12 +90,7 @@ const SearchItem = (props) => {
                     {result.title} ({releaseDate})
                   </Center>
                   <Spacer />
-                  <Image
-                    w={9}
-                    fallbackSrc="https://via.placeholder.com/150"
-                    alt=""
-                    src={`https://image.tmdb.org/t/p/w500/${result.poster_path}`}
-                  />
+                  <PosterImage poster_path={result.poster_path} />
                 </Flex>
               ),
               value: result.id,
@@ -129,12 +114,7 @@ const SearchItem = (props) => {
                     {result.name} ({airDate})
                   </Center>
                   <Spacer />
-                  <Image
-                    w={9}
-                    fallbackSrc="https://via.placeholder.com/150"
-                    alt=""
-                    src={`https://image.tmdb.org/t/p/w500/${result.poster_path}`}
-                  />
+                  <PosterImage poster_path={result.poster_path} />
                 </Flex>
               ),
               value: result.id,

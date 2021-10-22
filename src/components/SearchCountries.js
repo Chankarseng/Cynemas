@@ -1,5 +1,5 @@
 import { AsyncSelect } from 'chakra-react-select';
-import { Flex, Image, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import searchService from '../services/search';
 const SearchCountries = (props) => {
@@ -16,6 +16,13 @@ const SearchCountries = (props) => {
   const loadOptions = async (value, callback) => {
     callback(await filterData(value));
   };
+  const getFlagEmoji = (countryCode) => {
+    const codePoints = countryCode
+      .toUpperCase()
+      .split('')
+      .map((char) => 127397 + char.charCodeAt());
+    return String.fromCodePoint(...codePoints);
+  };
   const filterData = async (value) => {
     if (value !== '') {
       const result = await searchService.searchCountry(value);
@@ -27,12 +34,7 @@ const SearchCountries = (props) => {
           return {
             label: (
               <Flex>
-                <Image
-                  w={6}
-                  fallbackSrc="https://via.placeholder.com/150"
-                  alt=""
-                  src={`https://www.countryflags.io/${result.iso_3166_1}/flat/64.png`}
-                />
+                {getFlagEmoji(result.iso_3166_1)}
                 <Text px={2} size="sm">
                   {result.english_name}
                 </Text>

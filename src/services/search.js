@@ -1,27 +1,31 @@
 import axios from 'axios';
 
-const baseUrl = './.netlify/functions';
+let baseUrl;
+
+if (process.env.NODE_ENV === 'development') {
+  baseUrl = 'http://localhost:9000';
+} else {
+  baseUrl = './.netlify/functions';
+}
 
 const searchCountry = (searchTerm) => {
-  const request = axios
-    .get(`${baseUrl}/getCountries`)
-    .then((res) => {
-      return { data: res.data, complete: true };
-    });
+  const request = axios.get(`${baseUrl}/getCountries`).then((res) => {
+    return { data: res.data, complete: true };
+  });
   return request;
 };
 
 const searchWatchProviders = (searchTerm) => {
-  const request = axios
-    .get(`${baseUrl}/getMovieProviders`)
-    .then((res) => {
-      return { data: res.data, complete: true };
-    });
+  const request = axios.get(`${baseUrl}/getMovieProviders`).then((res) => {
+    return { data: res.data, complete: true };
+  });
   return request;
 };
 
 const searchMovie = async (searchTerm) => {
-  const request = await axios.get(`${baseUrl}/getMovie?movieName=${searchTerm}`);
+  const request = await axios.get(
+    `${baseUrl}/getMovie?movieName=${searchTerm}`
+  );
   return request;
 };
 //done
@@ -48,10 +52,8 @@ const getTVDetails = (searchTerm) => {
   return request;
 };
 
-
 const getTrendingMovies = () => {
   const request = axios.get(`${baseUrl}/getTrendingMovies`).then((res) => {
-    console.log(res)
     return { data: res.data, complete: true };
   });
   return request;
