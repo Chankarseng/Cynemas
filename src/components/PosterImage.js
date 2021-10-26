@@ -8,7 +8,7 @@ const PosterImage = ({ poster_path }) => {
         w={9}
         fallbackSrc="https://via.placeholder.com/150"
         alt="poster"
-        src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+        src={`https://image.tmdb.org/t/p/w92/${poster_path}`}
       />
     );
   } else {

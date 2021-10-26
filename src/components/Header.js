@@ -3,9 +3,26 @@ import {
   HStack,
   Heading,
   Button,
+  Box,
+  Flex,
+  Spacer,
+  Menu,
+  MenuButton,
+  MenuList,
+  IconButton,
+  MenuItem,
   useColorMode,
   useToast,
 } from '@chakra-ui/react';
+
+import {
+  HamburgerIcon,
+  MoonIcon,
+  SunIcon,
+  DeleteIcon,
+  DownloadIcon,
+  ViewIcon,
+} from '@chakra-ui/icons';
 const Header = ({
   listOfMovies,
   listOfTvSeries,
@@ -73,19 +90,74 @@ const Header = ({
   };
   const switchSearchType = currentSearchType === 'Movies' ? 'TV' : 'Movies';
   return (
-    <HStack justify="space-between" w="full" h={20}>
-      <Heading size="2xl">Cynemas</Heading>
-      <Button onClick={() => changeCurrentSearchType(currentSearchType)}>
-        Switch to search {switchSearchType}
-      </Button>
-      <HStack align="center" spacing={5}>
-        <Button onClick={saveResult}>Save</Button>
-        <Button onClick={clearResult}>Clear</Button>
-        <Button onClick={toggleColorMode}>
-          Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
+    <Box w="full">
+      <Flex display={{ base: 'flex', md: 'none' }}>
+        <Box>
+          <Heading>Cynemas</Heading>
+        </Box>
+        <Spacer />
+        <Box>
+          <Menu isLazy>
+            <MenuButton
+              as={IconButton}
+              aria-label="Options"
+              icon={<HamburgerIcon />}
+              variant="outline"
+            />
+            <MenuList>
+              <MenuItem
+                onClick={() => changeCurrentSearchType(currentSearchType)}
+                icon={<ViewIcon />}
+              >
+                Switch to search {switchSearchType}
+              </MenuItem>
+
+              <MenuItem onClick={() => saveResult()} icon={<DownloadIcon />}>
+                Save
+              </MenuItem>
+              <MenuItem onClick={() => clearResult()} icon={<DeleteIcon />}>
+                Clear
+              </MenuItem>
+              <MenuItem
+                closeOnSelect={false}
+                onClick={() => toggleColorMode()}
+                icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+              >
+                Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </Box>
+      </Flex>
+      <HStack
+        justify="space-between"
+        w="full"
+        h={20}
+        display={{ base: 'none', md: 'flex' }}
+      >
+        <Heading size="2xl">Cynemas</Heading>
+        <Button
+          leftIcon={<ViewIcon />}
+          onClick={() => changeCurrentSearchType(currentSearchType)}
+        >
+          Switch to search {switchSearchType}
         </Button>
+        <HStack align="center" spacing={5}>
+          <Button leftIcon={<DownloadIcon />} onClick={saveResult}>
+            Save
+          </Button>
+          <Button leftIcon={<DeleteIcon />} onClick={clearResult}>
+            Clear
+          </Button>
+          <Button
+            leftIcon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+            onClick={toggleColorMode}
+          >
+            Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
+          </Button>
+        </HStack>
       </HStack>
-    </HStack>
+    </Box>
   );
 };
 export default Header;

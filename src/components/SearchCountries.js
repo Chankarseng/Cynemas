@@ -2,7 +2,16 @@ import { AsyncSelect } from 'chakra-react-select';
 import { Flex, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import searchService from '../services/search';
+import { getFlagEmoji } from '../utils/getFlagEmoji';
 const SearchCountries = (props) => {
+  const excludedCountries = [
+    'East Germany',
+    'Yugoslavia',
+    'Czechoslovakia',
+    'Netherlands Antilles',
+    'Serbia and Montenegro',
+    'Soviet Union'
+  ];
   const [countryInputValue, setCountryInputValue] = useState([]);
   const handleChange = (value) => {
     let countryArray = [];
@@ -16,19 +25,16 @@ const SearchCountries = (props) => {
   const loadOptions = async (value, callback) => {
     callback(await filterData(value));
   };
-  const getFlagEmoji = (countryCode) => {
-    const codePoints = countryCode
-      .toUpperCase()
-      .split('')
-      .map((char) => 127397 + char.charCodeAt());
-    return String.fromCodePoint(...codePoints);
-  };
+
   const filterData = async (value) => {
     if (value !== '') {
       const result = await searchService.searchCountry(value);
       const finalResult = result.data
         .filter((data) => {
-          return data.english_name.toLowerCase().includes(value.toLowerCase());
+          return (
+            !excludedCountries.includes(data.english_name) &&
+            data.english_name.toLowerCase().includes(value.toLowerCase())
+          );
         })
         .map((result) => {
           return {

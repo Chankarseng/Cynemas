@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 
 const CardAlertDialog = ({
+  currentSearchType,
   isAlertDialogOpen,
   onAlertDialogClose,
   cancelRef,
@@ -24,11 +25,13 @@ const CardAlertDialog = ({
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            Delete movie
+            Delete item
           </AlertDialogHeader>
 
           <AlertDialogBody>
-            Are you sure to delete this movie from your movie list?
+            Are you sure to delete this{' '}
+            {currentSearchType === 'Movies' ? 'movie' : 'tv series'} from your{' '}
+            {currentSearchType === 'Movies' ? 'movies' : 'tv'} list?
           </AlertDialogBody>
 
           <AlertDialogFooter>

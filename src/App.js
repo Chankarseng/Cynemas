@@ -10,6 +10,7 @@ import {
   useColorModeValue,
   useBreakpointValue,
 } from '@chakra-ui/react';
+
 import React, { useEffect, useState } from 'react';
 import SearchItem from './components/SearchItem';
 import SearchCountries from './components/SearchCountries';
@@ -19,11 +20,11 @@ import Header from './components/Header';
 import searchService from './services/search';
 import InfoAccordion from './components/InfoAccordion';
 import Pagination from './components/Pagination';
-import { filterItems } from './utils/filterMovie';
+import { filterItems } from './utils/filterItems';
 import FilterAccordion from './components/FilterAccordion';
 function App() {
-  const colSpan = useBreakpointValue({ base: 8, md: 7 });
-  const submitButtonColSpan = useBreakpointValue({ base: 8, md: 1 });
+  const colSpan = useBreakpointValue({ base: 12, md: 10 });
+  const submitButtonColSpan = useBreakpointValue({ base: 12, md: 2 });
   const [listOfMovies, setListOfMovies] = useState([]);
   const [listOfTvSeries, setListOfTvSeries] = useState([]);
   const [currentListOfItems, setCurrentListOfItems] = useState([]);
@@ -34,7 +35,7 @@ function App() {
   const [selectedProviders, setSelectedProviders] = useState([]);
   const [titleFilter, setTitleFilter] = useState('');
   // Pagination use
-  const [itemsPerPage] = useState(8);
+  const itemsPerPage = useBreakpointValue({ base: 8, lg: 6, xl: 8 });
   const [currentPage, setCurrentPage] = useState(1);
 
   // For switching between Movie and TV search
@@ -59,6 +60,25 @@ function App() {
       setCurrentListOfItems(listOfTvSeries);
     }
   }, [currentSearchType, listOfMovies, listOfTvSeries]);
+
+  const refreshItem = async (id) => {
+    if (currentSearchType === 'Movies') {
+      let tempListOfMovies = [...listOfMovies];
+      const movieDetails = await searchService.getMovieDetails(id);
+      const objIndex = listOfMovies.findIndex((obj) => obj.id === id);
+      tempListOfMovies[objIndex] = movieDetails.data;
+      setListOfMovies(tempListOfMovies);
+      setCurrentListOfItems(tempListOfMovies);
+    } else if (currentSearchType === 'TV') {
+      let tempListOfTvSeries = [...listOfTvSeries];
+      const tvDetails = await searchService.getTVDetails(id);
+      const objIndex = listOfTvSeries.findIndex((obj) => obj.id === id);
+      tempListOfTvSeries[objIndex] = tvDetails.data;
+      setListOfTvSeries(tempListOfTvSeries);
+      setCurrentListOfItems(tempListOfTvSeries);
+    }
+  };
+
   const handleSubmit = () => {
     if (currentSearchType === 'Movies') {
       inputValue.forEach(async (item) => {
@@ -140,12 +160,13 @@ function App() {
   return (
     <Box>
       <Box
-        display={{ base: 'none', md: 'block' }} // When medium size or below make the navbar at the bottom
         position="fixed"
         w="full"
         zIndex={99}
         bg={useColorModeValue('white', 'gray.800')}
         borderBottom="1px"
+        px={{ base: 6, md: 0 }}
+        py={{ base: 2, md: 0 }}
       >
         <Container maxW="container.xl">
           <VStack align="start" spacing={0}>
@@ -158,9 +179,9 @@ function App() {
           </VStack>
         </Container>
       </Box>
-      <Container maxW="container.xl" p={25}>
-        <VStack mt={20} w="full" h="full" spacing={10} alignItems="flex-start">
-          <SimpleGrid columns={8} spacing={5} rowGap={10} w="full">
+      <Container maxW="container.xl" p={25} pt={100}>
+        <VStack w="full" h="full" spacing={10} alignItems="flex-start">
+          <SimpleGrid columns={12} spacing={5} rowGap={10} w="full">
             <GridItem colSpan={colSpan}>
               <Box size="lg" w="full">
                 <SearchItem
@@ -180,28 +201,24 @@ function App() {
                 Submit
               </Button>
             </GridItem>
-            <GridItem colSpan={8}>
+            <GridItem colSpan={12}>
               <InfoAccordion />
             </GridItem>
-            <GridItem colSpan={2} display={{ base: 'none', lg: 'block' }}>
+            <GridItem colSpan={4} display={{ base: 'none', lg: 'block' }}>
               <Input
                 size="lg"
                 placeholder="Filter By Title"
                 onChange={({ target }) => setTitleFilter(target.value)}
               ></Input>
             </GridItem>
-            <GridItem colSpan={3} display={{ base: 'none', lg: 'block' }}>
+            <GridItem colSpan={4} display={{ base: 'none', lg: 'block' }}>
               <SearchProviders setSelectedProviders={setSelectedProviders} />
             </GridItem>
-            <GridItem colSpan={2} display={{ base: 'none', lg: 'block' }}>
+            <GridItem colSpan={4} display={{ base: 'none', lg: 'block' }}>
               <SearchCountries setSelectedCountry={setSelectedCountry} />
             </GridItem>
-            <GridItem colSpan={1} display={{ base: 'none', lg: 'block' }}>
-              <Button w="full" size="lg">
-                Refresh
-              </Button>
-            </GridItem>
-            <GridItem colSpan={8} display={{ base: 'block', lg: 'none' }}>
+
+            <GridItem colSpan={12} display={{ base: 'block', lg: 'none' }}>
               <FilterAccordion
                 setTitleFilter={setTitleFilter}
                 setSelectedProviders={setSelectedProviders}
@@ -215,6 +232,8 @@ function App() {
                 selectedCountry={selectedCountry}
                 selectedProviders={selectedProviders}
                 handleRemove={handleRemove}
+                currentSearchType={currentSearchType}
+                refreshItem={refreshItem}
               />
             ) : null}
           </SimpleGrid>
@@ -227,7 +246,9 @@ function App() {
           setCurrentPage={setCurrentPage}
         />
       </Container>
+
     </Box>
+    
   );
 }
 

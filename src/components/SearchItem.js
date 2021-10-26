@@ -5,6 +5,8 @@ import { Center, Flex, Spacer } from '@chakra-ui/layout';
 import PosterImage from './PosterImage';
 const SearchItem = (props) => {
   const [options, setOptions] = useState([]);
+  const [movieOptions, setMovieOptions] = useState([]);
+  const [tvOptions, setTvOptions] = useState([]);
 
   useEffect(() => {
     const getTrending = async () => {
@@ -54,11 +56,26 @@ const SearchItem = (props) => {
       return trendingItemOptions;
     };
     (async () => {
-      const trendingItems = await getTrending();
-      setOptions(trendingItems);
+      let trendingItems = [];
+      if (movieOptions.length === 0 || tvOptions.length === 0) {
+        trendingItems = await getTrending();
+        if (props.currentSearchType === 'Movies') {
+          setMovieOptions(trendingItems);
+          setOptions(trendingItems);
+        } else if (props.currentSearchType === 'TV') {
+          setTvOptions(trendingItems);
+          setOptions(trendingItems);
+        }
+      } else {
+        if (props.currentSearchType === 'Movies') {
+          setOptions(movieOptions);
+        } else if (props.currentSearchType === 'TV') {
+          setOptions(tvOptions);
+        }
+      }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.currentSearchType]);
-
   let timeoutId;
   const loadOptions = (value, callback) => {
     if (timeoutId) {
@@ -72,7 +89,6 @@ const SearchItem = (props) => {
     if (value !== '') {
       if (props.currentSearchType === 'Movies') {
         const result = await searchService.searchMovie(value);
-        console.log(result);
         const finalResult = result.data.results
           .filter((data) => {
             return data.title.toLowerCase().includes(value.toLowerCase());
