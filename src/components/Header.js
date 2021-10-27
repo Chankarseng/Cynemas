@@ -23,6 +23,8 @@ import {
   DownloadIcon,
   ViewIcon,
 } from '@chakra-ui/icons';
+import { RiMovie2Fill } from 'react-icons/ri';
+import { Icon } from '@chakra-ui/react';
 const Header = ({
   listOfMovies,
   listOfTvSeries,
@@ -93,7 +95,9 @@ const Header = ({
     <Box w="full">
       <Flex display={{ base: 'flex', md: 'none' }}>
         <Box>
-          <Heading>Cynemas</Heading>
+          <Heading>
+            Cynemas <Icon boxSize={'8'} as={RiMovie2Fill} mb={1} />
+          </Heading>
         </Box>
         <Spacer />
         <Box>
@@ -135,14 +139,17 @@ const Header = ({
         h={20}
         display={{ base: 'none', md: 'flex' }}
       >
-        <Heading size="2xl">Cynemas</Heading>
+        <Heading size="2xl" isTruncated>
+          Cynemas <Icon boxSize={'10'} as={RiMovie2Fill} mb={2} />
+        </Heading>
+
         <Button
           leftIcon={<ViewIcon />}
           onClick={() => changeCurrentSearchType(currentSearchType)}
         >
           Switch to search {switchSearchType}
         </Button>
-        <HStack align="center" spacing={5}>
+        <HStack align="center" spacing={3}>
           <Button leftIcon={<DownloadIcon />} onClick={saveResult}>
             Save
           </Button>

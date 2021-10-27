@@ -5,6 +5,13 @@ import Card from './Card';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
+
+// import Swiper core and required modules
+import SwiperCore, { Pagination } from 'swiper';
+
+// install Swiper modules
+SwiperCore.use([Pagination]);
+
 const ItemList = ({
   listOfItems,
   titleFilter,
@@ -19,16 +26,16 @@ const ItemList = ({
   return listOfItems != null || listOfItems.length !== 0 ? (
     viewBreakPoint === 'swipe' ? (
       <GridItem colSpan={12}>
-        <Swiper spaceBetween={50}>
+        <Swiper autoHeight pagination={{ hide: 'true' }}>
           {listOfItems.map((item) => {
             return (
-              <SwiperSlide>
+              <SwiperSlide key={item.id}>
                 <Box
                   key={item.id}
                   overflow="hidden"
                   borderRadius="lg"
                   borderWidth="1px"
-                  mx={4}
+                  mx={'10%'}
                 >
                   <Card
                     key={item.id}
@@ -46,6 +53,8 @@ const ItemList = ({
               </SwiperSlide>
             );
           })}
+
+          <Box className="swiper-pagination"></Box>
         </Swiper>
       </GridItem>
     ) : (

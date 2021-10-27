@@ -23,20 +23,20 @@ const Card = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const imageSize = useBreakpointValue({ base: 'full', md: '50%' });
   const headingSize = useBreakpointValue({
-    base: 'md',
+    base: 'sm',
     sm: 'xl',
     md: 'md',
     lg: 'sm',
   });
   const textSize = useBreakpointValue({
-    base: 'md',
+    base: 'sm',
     sm: 'xl',
     md: 'lg',
     lg: 'md',
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const numOfSlice = useBreakpointValue({ base: 4, sm: 8, md: 6 });
+  const numOfSlice = useBreakpointValue({ base: 3, sm: 8, md: 6 });
   const keys = Object.keys(props.watch_providers);
   const objects = Object.values(props.watch_providers);
 
@@ -97,7 +97,7 @@ const Card = (props) => {
   return (
     <Box pb={3}>
       <Flex direction={{ base: 'column', md: 'row' }}>
-        <Image loading="lazy" w={imageSize} src={props.image} alt="poster" />
+        <Image loading="lazy" src={props.image}  w={imageSize} alt="poster" />
 
         <Box p="3" maxW={{ base: 'full', md: '50%' }} mx={2}>
           <Flex direction={{ base: 'row', md: 'column' }} mb={3}>
@@ -179,14 +179,16 @@ const Card = (props) => {
                         loading="lazy"
                         alt={c.provider_name}
                         m={2}
-                        boxSize="60px"
+                        boxSize={{base: '40px', md: '60px'}}
                         src={`https://image.tmdb.org/t/p/w154/${c.logo_path}`}
                       />
                     </WrapItem>
                   );
                 })}
               </Wrap>
-              <Button w="full" onClick={onOpen}>See full details</Button>
+              <Button w="full" onClick={onOpen}>
+                See full details
+              </Button>
             </Stack>
           )}
 
@@ -206,7 +208,7 @@ const Card = (props) => {
               variant="outline"
               onClick={() => setIsAlertDialogOpen(true)}
             >
-              Remove item
+              Remove Item
             </Button>
           </HStack>
           <CardAlertDialog

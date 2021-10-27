@@ -8,7 +8,6 @@ import {
   AccordionIcon,
   Input,
   Stack,
-  Button,
 } from '@chakra-ui/react';
 import SearchProviders from './SearchProviders';
 import SearchCountries from './SearchCountries';
@@ -39,9 +38,6 @@ const FilterAccordion = ({
               ></Input>
               <SearchProviders setSelectedProviders={setSelectedProviders} />
               <SearchCountries setSelectedCountry={setSelectedCountry} />
-              <Button w="full" size="lg">
-                Refresh
-              </Button>
             </Stack>
           </AccordionPanel>
         </AccordionItem>

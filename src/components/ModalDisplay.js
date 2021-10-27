@@ -29,7 +29,6 @@ import {
 import { getFlagEmoji } from '../utils/getFlagEmoji';
 const ModalDisplay = ({ title, isOpen, onClose, keys, watch_providers }) => {
   const modalSize = useBreakpointValue({ base: 'sm', lg: '3xl' });
-  console.log(watch_providers)
   if (keys.length === 0 || keys === undefined || keys === []) {
     return (
       <Modal isOpen={isOpen} onClose={onClose} size={modalSize}>
