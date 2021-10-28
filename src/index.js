@@ -5,7 +5,11 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import './App.css';
 import { createBreakpoints } from '@chakra-ui/theme-tools';
 const breakpoints = createBreakpoints({
-  md: '860px',
+  sm: "30em",
+  md: '52em',
+  lg: "62em",
+  xl: "80em",
+  "2xl": "96em",
 });
 const theme = extendTheme({ breakpoints });
 ReactDOM.render(
