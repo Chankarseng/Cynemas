@@ -18,7 +18,7 @@ const Pagination = ({
   } else {
     return (
       <Center>
-        <Stack mt={10} direction={'row'}>
+        <Stack my={10} direction={'row'} >
           {pageNumbers.map((number) => (
             <Box key={number}>
               <Button
