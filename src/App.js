@@ -12,11 +12,11 @@ const App = () => {
     <Switch>
       <Route path="/about">
         <About />
-        <Footer itemCount={itemCount} component={About} />
+        <Footer itemCount={itemCount} component="about" />
       </Route>
       <Route path="/">
         <Home setItemCount={updateItemCount} />
-        <Footer itemCount={itemCount} component={Home} />
+        <Footer itemCount={itemCount} component="home" />
       </Route>
       <Footer />
     </Switch>
