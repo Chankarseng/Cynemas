@@ -36,8 +36,8 @@ const Footer = (props) => {
         justify={{ base: 'center', md: 'space-between' }}
         align={'center'}
       >
-        <Text>Created by Alvin Chan @ {new Date().getFullYear()}</Text>
-        <Stack direction={'row'} spacing={6} pr={28}>
+        <Text textAlign="center">Created by Alvin Chan @ {new Date().getFullYear()}</Text>
+        <Stack direction={'row'} spacing={6} pr={{ base: 0, md: 28 }}>
           <RouterLink to="/">
             <Link>Home</Link>
           </RouterLink>
