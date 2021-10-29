@@ -23,7 +23,7 @@ const Footer = (props) => {
       color={useColorModeValue('gray.700', 'gray.200')}
       // position={'fixed'}
       position={
-        (props.itemCount !== 0 && props.component === 'home') || !isMobileSize
+        props.itemCount !== 0 && (props.component === 'home' || !isMobileSize)
           ? 'relative'
           : 'fixed'
       }
