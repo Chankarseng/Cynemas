@@ -36,17 +36,19 @@ const Footer = (props) => {
         justify={{ base: 'center', md: 'space-between' }}
         align={'center'}
       >
-        <Text textAlign="center">Created by Alvin Chan @ {new Date().getFullYear()}</Text>
+        <Text textAlign="center">
+          Created by Alvin Chan @ {new Date().getFullYear()}
+        </Text>
         <Stack direction={'row'} spacing={6} pr={{ base: 0, md: 28 }}>
-          <RouterLink to="/">
-            <Link>Home</Link>
-          </RouterLink>
-          <RouterLink to="/about">
-            <Link>About</Link>
-          </RouterLink>
-          <RouterLink to="/faq">
-            <Link>FAQ</Link>
-          </RouterLink>
+          <Link as={RouterLink} to="/">
+            Home
+          </Link>
+          <Link as={RouterLink} to="/about">
+            About
+          </Link>
+          <Link as={RouterLink} to="/faq">
+            FAQ
+          </Link>
         </Stack>
         <Stack direction={'row'} spacing={6}>
           <IconButton icon={<SiGithub />}></IconButton>

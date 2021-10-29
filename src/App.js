@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Home from './components/Home';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Footer from './components/Footer';
 import About from './components/About';
 const App = () => {
