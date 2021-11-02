@@ -46,8 +46,12 @@ const Footer = (props) => {
           </Link>
         </Stack>
         <Stack direction={'row'} spacing={6}>
-          <IconButton icon={<SiGithub />}></IconButton>
-          <IconButton icon={<SiThemoviedatabase />}> </IconButton>
+          <Link href="https://github.com/Chankarseng/Cynemas">
+            <IconButton icon={<SiGithub />} />
+          </Link>
+          <Link href="https://themoviedb.org" isExternal>
+            <IconButton icon={<SiThemoviedatabase />} />
+          </Link>
         </Stack>
       </Container>
     </Box>
