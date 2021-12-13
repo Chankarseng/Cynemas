@@ -23,8 +23,8 @@ const Card = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const imageSize = useBreakpointValue({ base: 'full', md: '50%' });
   const headingSize = useBreakpointValue({
-    base: 'sm',
-    sm: 'xl',
+    base: 'xs',
+    sm: 'lg',
     md: 'md',
     lg: 'sm',
   });
@@ -97,7 +97,7 @@ const Card = (props) => {
   return (
     <Box pb={3}>
       <Flex direction={{ base: 'column', md: 'row' }}>
-        <Image loading="lazy" src={props.image}  w={imageSize} alt="poster" />
+        <Image loading="lazy" src={props.image} w={imageSize} alt="poster" />
 
         <Box p="3" maxW={{ base: 'full', md: '50%' }} mx={2}>
           <Flex direction={{ base: 'row', md: 'column' }} mb={3}>
@@ -136,7 +136,6 @@ const Card = (props) => {
             <Link
               mr="10px"
               isExternal="true"
-              // Change this to point to correct URL
               href={`https://www.themoviedb.org/${
                 props.currentSearchType === 'Movies' ? 'movie' : 'tv'
               }/${props.id}`}
@@ -176,17 +175,18 @@ const Card = (props) => {
                   return (
                     <WrapItem key={c.provider_name}>
                       <Image
+                        boxShadow="md"
                         loading="lazy"
                         alt={c.provider_name}
                         m={2}
-                        boxSize={{base: '40px', md: '60px'}}
+                        boxSize={{ base: '40px', md: '60px' }}
                         src={`https://image.tmdb.org/t/p/w154/${c.logo_path}`}
                       />
                     </WrapItem>
                   );
                 })}
               </Wrap>
-              <Button w="full" onClick={onOpen}>
+              <Button w="full" onClick={onOpen} colorScheme={'telegram'}>
                 See full details
               </Button>
             </Stack>
@@ -208,7 +208,7 @@ const Card = (props) => {
               variant="outline"
               onClick={() => setIsAlertDialogOpen(true)}
             >
-              Remove Item
+              Remove
             </Button>
           </HStack>
           <CardAlertDialog

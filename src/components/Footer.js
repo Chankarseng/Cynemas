@@ -8,10 +8,12 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
-import { Link as RouterLink } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { SiGithub, SiThemoviedatabase } from 'react-icons/si';
+import FooterLink from './FooterLink';
 
 const Footer = (props) => {
+  const location = useLocation();
   return (
     <Box
       bg={useColorModeValue('gray.50', 'gray.900')}
@@ -35,15 +37,15 @@ const Footer = (props) => {
           Created by Alvin Chan @ {new Date().getFullYear()}
         </Text>
         <Stack direction={'row'} spacing={6} pr={{ base: 0, md: 28 }}>
-          <Link as={RouterLink} to="/">
+          <FooterLink to={'/'} location={location.pathname}>
             Home
-          </Link>
-          <Link as={RouterLink} to="/about">
+          </FooterLink>
+          <FooterLink to={'/about'} location={location.pathname}>
             About
-          </Link>
-          <Link as={RouterLink} to="/faq">
+          </FooterLink>
+          <FooterLink to={'/faq'} location={location.pathname}>
             FAQ
-          </Link>
+          </FooterLink>
         </Stack>
         <Stack direction={'row'} spacing={6}>
           <Link href="https://github.com/Chankarseng/Cynemas">

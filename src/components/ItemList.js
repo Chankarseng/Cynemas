@@ -66,6 +66,7 @@ const ItemList = ({
               overflow="hidden"
               borderRadius="lg"
               borderWidth="1px"
+              boxShadow="dark-lg"
             >
               <Card
                 key={item.id}
