@@ -24,7 +24,6 @@ import {
   TabPanel,
   Button,
   Flex,
-  Box,
   useBreakpointValue,
 } from '@chakra-ui/react';
 import { getFlagEmoji } from '../utils/getFlagEmoji';
