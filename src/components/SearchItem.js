@@ -2,10 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { AsyncSelect } from 'chakra-react-select';
 import searchService from '../services/search';
 import { Center, Flex, Spacer } from '@chakra-ui/layout';
+<<<<<<< Updated upstream
 import { Image } from '@chakra-ui/image';
 const SearchItem = (props) => {
   const [options, setOptions] = useState([]);
 
+=======
+import PosterImage from './PosterImage';
+import { useBreakpointValue } from '@chakra-ui/media-query';
+const SearchItem = (props) => {
+  const [options, setOptions] = useState([]);
+  const [movieOptions, setMovieOptions] = useState([]);
+  const [tvOptions, setTvOptions] = useState([]);
+  const searchBarSize = useBreakpointValue({ base: 'sm', md: 'lg' });
+>>>>>>> Stashed changes
   useEffect(() => {
     const getTrending = async () => {
       let trendingItems;
@@ -151,9 +161,10 @@ const SearchItem = (props) => {
 
   return (
     <AsyncSelect
+      openMenuOnFocus={true}
       placeholder={`Search ${props.currentSearchType} title`}
       defaultOptions={options}
-      size="lg"
+      size={searchBarSize}
       isMulti
       cacheOptions
       value={props.inputValue}

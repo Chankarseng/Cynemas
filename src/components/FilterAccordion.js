@@ -7,7 +7,7 @@ import {
   AccordionButton,
   AccordionIcon,
   Input,
-  Button,
+  Stack,
 } from '@chakra-ui/react';
 import SearchProviders from './SearchProviders';
 import SearchCountries from './SearchCountries';
@@ -30,16 +30,16 @@ const FilterAccordion = ({
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4}>
-            <Input
-              size="lg"
-              placeholder="Filter By Title"
-              onChange={({ target }) => setTitleFilter(target.value)}
-            ></Input>
-            <SearchProviders setSelectedProviders={setSelectedProviders} />
-            <SearchCountries setSelectedCountry={setSelectedCountry} />
-            <Button w="full" size="lg">
-              Refresh
-            </Button>
+            <Stack m={2} spacing={5}>
+              <Input
+                autoComplete="off"
+                size="lg"
+                placeholder="Filter By Title"
+                onChange={({ target }) => setTitleFilter(target.value)}
+              ></Input>
+              <SearchProviders setSelectedProviders={setSelectedProviders} />
+              <SearchCountries setSelectedCountry={setSelectedCountry} />
+            </Stack>
           </AccordionPanel>
         </AccordionItem>
       </Accordion>

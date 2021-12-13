@@ -23,8 +23,12 @@ import {
   TabPanels,
   TabPanel,
   Button,
+  Flex,
+  Box,
+  useBreakpointValue,
 } from '@chakra-ui/react';
-
+import { getFlagEmoji } from '../utils/getFlagEmoji';
+import { countryLookUp } from '../utils/countryLookup';
 const ModalDisplay = ({ title, isOpen, onClose, keys, watch_providers }) => {
   if (keys.length === 0 || keys === undefined || keys === []) {
     return (
@@ -60,7 +64,7 @@ const ModalDisplay = ({ title, isOpen, onClose, keys, watch_providers }) => {
               </TabList>
               <TabPanels>
                 <TabPanel>
-                  <Table size="lg" variant="simple" colorScheme="blackAlpha">
+                  <Table size="sm" variant="simple" colorScheme="cyan">
                     <Thead>
                       <Tr>
                         <Th>Country</Th>
@@ -77,12 +81,20 @@ const ModalDisplay = ({ title, isOpen, onClose, keys, watch_providers }) => {
                           return (
                             <Tr key={country}>
                               <Td>
-                                <Image
-                                  title={country}
-                                  alt={country}
-                                  src={`https://www.countryflags.io/${country}/flat/32.png`}
-                                />
-                                <Text>({country})</Text>
+                                <Flex
+                                  direction={{ base: 'column', md: 'row' }}
+                                  alignItems={{ md: 'center' }}
+                                >
+                                  <Text fontSize={30}>
+                                    {getFlagEmoji(country)}
+                                  </Text>
+                                  <Text
+                                    ml={{ base: 0, md: 5 }}
+                                    mt={{ base: 5, md: 0 }}
+                                  >
+                                    {countryLookUp(country)}
+                                  </Text>
+                                </Flex>
                               </Td>
                               <Td>
                                 <Wrap>
@@ -91,6 +103,7 @@ const ModalDisplay = ({ title, isOpen, onClose, keys, watch_providers }) => {
                                       return (
                                         <WrapItem key={service.provider_name}>
                                           <Image
+                                            boxShadow={'lg'}
                                             title={service.provider_name}
                                             loading="lazy"
                                             alt={service.provider_name}
@@ -113,7 +126,7 @@ const ModalDisplay = ({ title, isOpen, onClose, keys, watch_providers }) => {
                   </Table>
                 </TabPanel>
                 <TabPanel>
-                  <Table size="lg" variant="simple" colorScheme="purple">
+                  <Table size="sm" variant="simple" colorScheme="cyan">
                     <Thead>
                       <Tr>
                         <Th>Country</Th>
@@ -128,12 +141,20 @@ const ModalDisplay = ({ title, isOpen, onClose, keys, watch_providers }) => {
                           return (
                             <Tr key={country}>
                               <Td>
-                                <Image
-                                  title={country}
-                                  alt={country}
-                                  src={`https://www.countryflags.io/${country}/flat/32.png`}
-                                />
-                                <Text>({country})</Text>
+                                <Flex
+                                  direction={{ base: 'column', md: 'row' }}
+                                  alignItems={{ md: 'center' }}
+                                >
+                                  <Text fontSize={30}>
+                                    {getFlagEmoji(country)}
+                                  </Text>
+                                  <Text
+                                    ml={{ base: 0, md: 5 }}
+                                    mt={{ base: 5, md: 0 }}
+                                  >
+                                    {countryLookUp(country)}
+                                  </Text>
+                                </Flex>
                               </Td>
                               <Td>
                                 <Wrap>
@@ -142,6 +163,67 @@ const ModalDisplay = ({ title, isOpen, onClose, keys, watch_providers }) => {
                                       return (
                                         <WrapItem key={service.provider_name}>
                                           <Image
+                                            boxShadow={'lg'}
+                                            title={service.provider_name}
+                                            loading="lazy"
+                                            alt={service.provider_name}
+                                            m={2}
+                                            boxSize="60px"
+                                            src={`https://image.tmdb.org/t/p/w500/${service.logo_path}`}
+                                          />
+                                        </WrapItem>
+                                      );
+                                    }
+                                  )}
+                                </Wrap>
+                              </Td>
+                            </Tr>
+                          );
+                        }
+                        return null;
+                      })}
+                    </Tbody>
+                  </Table>
+                </TabPanel>
+                <TabPanel>
+                  <Table size="sm" variant="simple" colorScheme="cyan">
+                    <Thead>
+                      <Tr>
+                        <Th>Country</Th>
+                        <Th>Streaming Service Available</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {keys.map((country) => {
+                        const countryStreamingService =
+                          watch_providers[country];
+                        if (countryStreamingService.hasOwnProperty('free')) {
+                          return (
+                            <Tr key={country}>
+                              <Td>
+                                <Flex
+                                  direction={{ base: 'column', md: 'row' }}
+                                  alignItems={{ md: 'center' }}
+                                >
+                                  <Text fontSize={30}>
+                                    {getFlagEmoji(country)}
+                                  </Text>
+                                  <Text
+                                    ml={{ base: 0, md: 5 }}
+                                    mt={{ base: 5, md: 0 }}
+                                  >
+                                    {countryLookUp(country)}
+                                  </Text>
+                                </Flex>
+                              </Td>
+                              <Td>
+                                <Wrap>
+                                  {countryStreamingService.free.map(
+                                    (service) => {
+                                      return (
+                                        <WrapItem key={service.provider_name}>
+                                          <Image
+                                            boxShadow={'lg'}
                                             title={service.provider_name}
                                             loading="lazy"
                                             alt={service.provider_name}
