@@ -83,6 +83,8 @@ const SearchItem = (props) => {
     if (timeoutId) {
       clearTimeout(timeoutId);
     }
+
+    // Debounce search query
     timeoutId = setTimeout(async () => {
       callback(await filterData(value));
     }, 500);
