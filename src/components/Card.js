@@ -178,6 +178,7 @@ const Card = (props) => {
                         boxShadow="md"
                         loading="lazy"
                         alt={c.provider_name}
+                        title={c.provider_name}
                         m={2}
                         boxSize={{ base: '40px', md: '60px' }}
                         src={`https://image.tmdb.org/t/p/w154/${c.logo_path}`}
