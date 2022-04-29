@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { AsyncSelect } from 'chakra-react-select';
 import searchService from '../services/search';
-import { Center, Flex, Spacer } from '@chakra-ui/layout';
+import { Center, Flex } from '@chakra-ui/layout';
 import PosterImage from './PosterImage';
 import { useBreakpointValue } from '@chakra-ui/media-query';
 const SearchItem = (props) => {
   const [options, setOptions] = useState([]);
   const [movieOptions, setMovieOptions] = useState([]);
   const [tvOptions, setTvOptions] = useState([]);
-  const searchBarSize = useBreakpointValue({ base: 'sm', md: 'lg' });
+  const searchBarSize = useBreakpointValue({ base: 'sm', md: 'md' });
 
   useEffect(() => {
     const getTrending = async () => {
@@ -23,11 +23,10 @@ const SearchItem = (props) => {
           return {
             label: (
               <Flex>
-                <Center>
+                <PosterImage poster_path={result.poster_path} />
+                <Center pl="4" borderLeft="1px" borderColor="gray.600">
                   {result.title} ({releaseDate})
                 </Center>
-                <Spacer />
-                <PosterImage poster_path={result.poster_path} />
               </Flex>
             ),
             value: result.id,
@@ -44,11 +43,10 @@ const SearchItem = (props) => {
           return {
             label: (
               <Flex>
-                <Center>
+                <PosterImage poster_path={result.poster_path} />
+                <Center pl="4" borderLeft="1px" borderColor="gray.600">
                   {result.name} ({firstAirDate})
                 </Center>
-                <Spacer />
-                <PosterImage poster_path={result.poster_path} />
               </Flex>
             ),
             value: result.id,
@@ -83,8 +81,6 @@ const SearchItem = (props) => {
     if (timeoutId) {
       clearTimeout(timeoutId);
     }
-
-    // Debounce search query
     timeoutId = setTimeout(async () => {
       callback(await filterData(value));
     }, 500);
@@ -106,11 +102,10 @@ const SearchItem = (props) => {
             return {
               label: (
                 <Flex>
-                  <Center>
+                  <PosterImage poster_path={result.poster_path} />
+                  <Center pl="4" borderLeft="1px" borderColor="gray.600">
                     {result.title} ({releaseDate})
                   </Center>
-                  <Spacer />
-                  <PosterImage poster_path={result.poster_path} />
                 </Flex>
               ),
               value: result.id,
@@ -130,11 +125,10 @@ const SearchItem = (props) => {
             return {
               label: (
                 <Flex>
-                  <Center>
+                  <PosterImage poster_path={result.poster_path} />
+                  <Center pl="4" borderLeft="1px" borderColor="gray.600">
                     {result.name} ({airDate})
                   </Center>
-                  <Spacer />
-                  <PosterImage poster_path={result.poster_path} />
                 </Flex>
               ),
               value: result.id,
