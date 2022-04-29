@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image,  useBreakpointValue, } from '@chakra-ui/react';
+import { Image, useBreakpointValue } from '@chakra-ui/react';
 const PosterImage = ({ poster_path }) => {
   const searchBarSize = useBreakpointValue({ base: '6', md: '9' });
   if (poster_path !== null) {
@@ -9,10 +9,17 @@ const PosterImage = ({ poster_path }) => {
         fallbackSrc="https://via.placeholder.com/150"
         alt="poster"
         src={`https://image.tmdb.org/t/p/w92/${poster_path}`}
+        mr="4"
       />
     );
   } else {
-    return <Image w={searchBarSize} fallbackSrc="https://via.placeholder.com/150" alt="" />;
+    return (
+      <Image
+        w={searchBarSize}
+        fallbackSrc="https://via.placeholder.com/150"
+        alt=""
+      />
+    );
   }
 };
 

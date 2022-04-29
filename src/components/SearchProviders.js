@@ -48,7 +48,7 @@ const SearchProviders = (props) => {
 
   return (
     <AsyncSelect
-      placeholder="Search Streaming Provider"
+      placeholder="Streaming Providers"
       size="lg"
       isMulti
       cacheOptions

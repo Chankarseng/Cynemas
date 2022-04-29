@@ -96,7 +96,7 @@ const Header = ({
       <Flex display={{ base: 'flex', md: 'none' }}>
         <Box>
           <Heading>
-            Cynemas <Icon boxSize={'8'} as={RiMovie2Fill} mb={1} />
+            Cynemas <Icon boxSize={'8'} as={RiMovie2Fill} mb={-1} />
           </Heading>
         </Box>
         <Spacer />
@@ -111,8 +111,7 @@ const Header = ({
             <MenuList>
               <MenuItem
                 onClick={() => changeCurrentSearchType(currentSearchType)}
-                icon={<ViewIcon />}
-              >
+                icon={<ViewIcon />}>
                 Switch to search {switchSearchType}
               </MenuItem>
 
@@ -125,8 +124,7 @@ const Header = ({
               <MenuItem
                 closeOnSelect={false}
                 onClick={() => toggleColorMode()}
-                icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-              >
+                icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}>
                 Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
               </MenuItem>
             </MenuList>
@@ -137,16 +135,14 @@ const Header = ({
         justify="space-between"
         w="full"
         h={20}
-        display={{ base: 'none', md: 'flex' }}
-      >
+        display={{ base: 'none', md: 'flex' }}>
         <Heading size="2xl" isTruncated>
-          Cynemas <Icon boxSize={'10'} as={RiMovie2Fill} mb={2} />
+          Cynemas <Icon boxSize={'10'} as={RiMovie2Fill} mb={-1} />
         </Heading>
 
         <Button
           leftIcon={<ViewIcon />}
-          onClick={() => changeCurrentSearchType(currentSearchType)}
-        >
+          onClick={() => changeCurrentSearchType(currentSearchType)}>
           Switch to search {switchSearchType}
         </Button>
         <HStack align="center" spacing={3}>
@@ -158,8 +154,7 @@ const Header = ({
           </Button>
           <Button
             leftIcon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-            onClick={toggleColorMode}
-          >
+            onClick={toggleColorMode}>
             Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
           </Button>
         </HStack>
