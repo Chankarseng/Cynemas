@@ -4,7 +4,7 @@ import { useBreakpointValue, GridItem, Box } from '@chakra-ui/react';
 import Card from './Card';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import Swiper core and required modules
-import { Pagination } from 'swiper';
+// import { Pagination } from 'swiper';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
